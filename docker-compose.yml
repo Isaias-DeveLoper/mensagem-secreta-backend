@@ -1,0 +1,16 @@
+version: '0.0.1'
+services:
+  app:
+    container_name: 'mensagem-secreta-bck' 
+    build:
+      context: .
+    environment:
+        CONNECTION: "root:jjkeys61@tcp(host.docker.internal:3306)/msgs?charset=utf8mb4&parseTime=True&loc=Local"
+        ENV: "development"
+        PORT: 8080
+    ports:
+      - '80:8080'
+    expose:
+      - '80'
+    volumes:
+      - ./src:/app/src
