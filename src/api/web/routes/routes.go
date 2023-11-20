@@ -14,7 +14,7 @@ import (
 
 var r *chi.Mux
 
-func IniciarRotas(usuarioController *controllers.UsuarioController) {
+func IniciarRotas(usuarioController *controllers.UsuarioController, grupoController *controllers.GrupoController) {
 	r = chi.NewRouter()
 
 	r.Use(middleware.ContentType)
@@ -24,12 +24,19 @@ func IniciarRotas(usuarioController *controllers.UsuarioController) {
 	})
 	
 	r.Route("/v1", func(r chi.Router) {
+
 		r.Route("/user", func(r chi.Router) {
 			r.Get("/users", usuarioController.GetUsers)
 			r.Get("/users_u", usuarioController.GetUserUsername)
 			r.Put("/atualizar", usuarioController.PutUser)
 			r.Post("/criar", usuarioController.PostUser)
 			r.Delete("/excluir", usuarioController.DeleteUser)
+		})
+
+		r.Route("/group",func(r chi.Router) {
+			r.Get("/grupos",grupoController.GetGrupos)
+			r.Get("/grupos_p",grupoController.GetGruposPropietario)
+			r.Post("/criar",grupoController.PostGrupo)
 		})
 	})
 }

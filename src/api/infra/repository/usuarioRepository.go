@@ -13,7 +13,7 @@ type UsuarioRepository struct {
 	Conn *sql.DB
 }
 
-func Construct(conn *sql.DB) *UsuarioRepository {
+func UsuarioRepositoryConstruct(conn *sql.DB) *UsuarioRepository {
 	return &UsuarioRepository{
 		Conn: conn,
 	}

@@ -16,7 +16,7 @@ type UsuarioController struct {
 	ExcluirUsuarioUseCase         *usuario_usecase.ExcluirUsuarioUseCase
 }
 
-func UsuarioConstruct(criarUsuarioUseCase *usuario_usecase.CriarUsuarioUseCase,
+func UsuarioControllerConstruct(criarUsuarioUseCase *usuario_usecase.CriarUsuarioUseCase,
 	listarUsuariosUseCase *usuario_usecase.ListarUsuariosUseCase,
 	listarUsuariosUsernameUseCase *usuario_usecase.ListarUsuarioPorUsernameUseCase,
 	atualizarUsuarioUseCase *usuario_usecase.AtualizarUsuarioUseCase,

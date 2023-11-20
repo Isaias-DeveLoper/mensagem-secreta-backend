@@ -14,18 +14,16 @@ type Usuario struct {
 
 type IUsuarioRepository interface {
 	ListarUsuarios() ([]*Usuario, error)
-	ListarUsuariosPorUsername(username string)([]*Usuario,error)
+	ListarUsuariosPorUsername(username string) ([]*Usuario, error)
 	CriarUsuario(usuario *Usuario) (*Usuario, error)
-	AtualizarUsuario(usuarioAtualizado dto.UsuarioAtualizadoDto)(interface{},error)
-	ExcluirUsuario(username,senha string) (interface{},error)
+	AtualizarUsuario(usuarioAtualizado dto.UsuarioAtualizadoDto) (interface{}, error)
+	ExcluirUsuario(username, senha string) (interface{}, error)
 }
 
-func NovoUsuario(username, senha string) *Usuario {
-	id := uuid.New()
-
+func NovoUsuario(usuario dto.UsuarioInputDto) *Usuario {
 	return &Usuario{
-		UserID:   id.String(),
-		Username: username,
-		Senha:    utils.Sha256(senha),
+		UserID:   uuid.New().String(),
+		Username: usuario.Username,
+		Senha:    utils.Sha256(usuario.Senha),
 	}
 }

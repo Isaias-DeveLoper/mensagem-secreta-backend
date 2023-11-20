@@ -16,7 +16,7 @@ func CriarUsuarioConstruct(usuarioRepository entity.IUsuarioRepository) *CriarUs
 }
 
 func (u *CriarUsuarioUseCase) Execute(input dto.UsuarioInputDto) (*dto.UsuarioOutputDto, error) {
-	novoUsuario := entity.NovoUsuario(input.Username, input.Senha)
+	novoUsuario := entity.NovoUsuario(input)
 	usuario, err := u.UsuarioRepository.CriarUsuario(novoUsuario)
 	if err != nil {
 		panic(err.Error())
