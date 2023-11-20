@@ -49,7 +49,7 @@ func (c *GrupoController) PostGrupo(w http.ResponseWriter, r *http.Request) {
 
 func (c *GrupoController) GetGruposPropietario(w http.ResponseWriter, r *http.Request) {
 
-	propietario := r.URL.Query().Get("propietario")
+	propietario := r.URL.Query().Get("usuario_id")
 	grupos, err := c.ListarGruposPropietarioUseCase.Execute(propietario)
 	if err != nil {
 		http.Error(w, err.Error(), 500)

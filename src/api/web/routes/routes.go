@@ -14,7 +14,8 @@ import (
 
 var r *chi.Mux
 
-func IniciarRotas(usuarioController *controllers.UsuarioController,
+func IniciarRotas(authController *controllers.AuthController,
+	usuarioController *controllers.UsuarioController,
 	grupoController *controllers.GrupoController,
 	mensagemController *controllers.MensagemController) {
 	r = chi.NewRouter()
@@ -26,6 +27,8 @@ func IniciarRotas(usuarioController *controllers.UsuarioController,
 	})
 
 	r.Route("/v1", func(r chi.Router) {
+
+		r.Post("/login",authController.Login)
 
 		r.Route("/user", func(r chi.Router) {
 			r.Get("/users", usuarioController.GetUsers)

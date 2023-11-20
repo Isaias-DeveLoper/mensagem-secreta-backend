@@ -62,9 +62,12 @@ func (r *GrupoRepository) ListarGrupos() ([]*entity.Grupo, error) {
 	return grupos, nil
 }
 
-func (r *GrupoRepository) ListarGruposPorPropietario(propietario string) ([]*entity.Grupo, error) {
+func (r *GrupoRepository) ListarGruposPorPropietario(usuario_id string) ([]*entity.Grupo, error) {
 	var grupos []*entity.Grupo
+	var propietario string
 
+	r.Conn.QueryRow(`SELECT username FROM usuarios WHERE user_id=?`,usuario_id).Scan(&propietario)
+	
 	rows, err := r.Conn.Query(`SELECT grupo_id,nome,propietario FROM grupos WHERE propietario =?`,propietario)
 	if err != nil {
 		return nil, err

@@ -15,10 +15,10 @@ func ListarGruposPropietarioConstruct(grupoRepository entity.IGrupoRepository) *
 	}
 }
 
-func (u *ListarGruposPorPropietarioUseCase) Execute(propietario string) ([]*dto.GrupoOutputDto, error) {
+func (u *ListarGruposPorPropietarioUseCase) Execute(usuario_id string) ([]*dto.GrupoOutputDto, error) {
 	var grupos []*dto.GrupoOutputDto
 
-	r, err := u.GrupoRepository.ListarGruposPorPropietario(propietario)
+	r, err := u.GrupoRepository.ListarGruposPorPropietario(usuario_id)
 	if err != nil {
 		return nil, err
 	}

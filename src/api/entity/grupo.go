@@ -16,7 +16,7 @@ type Grupo struct {
 
 type IGrupoRepository interface {
 	ListarGrupos() ([]*Grupo, error)
-	ListarGruposPorPropietario(propietario string) ([]*Grupo, error)
+	ListarGruposPorPropietario(usuario_id string) ([]*Grupo, error)
 	CriarGrupo(grupo *Grupo) (*Grupo, error)
 }
 
