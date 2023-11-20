@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
 	// "os"
 
 	"github.com/Isaias-Developer/mensagem-secreta-backend/src/api/web/controllers"
 	"github.com/Isaias-Developer/mensagem-secreta-backend/src/api/web/middleware"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
 )
 
 var r *chi.Mux
@@ -18,9 +20,19 @@ func IniciarRotas(authController *controllers.AuthController,
 	usuarioController *controllers.UsuarioController,
 	grupoController *controllers.GrupoController,
 	mensagemController *controllers.MensagemController) {
+		
 	r = chi.NewRouter()
 
-	r.Use(middleware.ContentType)
+	corsMiddleware := cors.New(cors.Options{
+        AllowedOrigins:   []string{"*"},
+        AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+        AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+        ExposedHeaders:   []string{"Link"},
+        AllowCredentials: true,
+        MaxAge:           300,
+    })
+
+	r.Use(middleware.ContentType,corsMiddleware.Handler)
 
 	r.Get("/", func(w http.ResponseWriter, _ *http.Request) {
 		json.NewEncoder(w).Encode(map[string]interface{}{"mensagem": "Seja bem vindo!"})
