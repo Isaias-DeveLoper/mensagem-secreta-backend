@@ -32,28 +32,26 @@ func ConectarBancoDeDados() {
 		log.Fatal(err.Error())
 	}
 
-	if os.Getenv("ENV") != "development" {
 		
-		driver, err := postgres.WithInstance(conn, &postgres.Config{})
+	driver, err := postgres.WithInstance(conn, &postgres.Config{})
 
-		if os.Getenv("ENV") == "development" {
-			driver,err = mysql.WithInstance(conn,&mysql.Config{})
-		} 
+	if os.Getenv("ENV") == "development" {
+	    driver,err = mysql.WithInstance(conn,&mysql.Config{})
+	} 
 
-		if err != nil {
-			panic(err.Error())
-		}
-		m, e:= migrate.NewWithDatabaseInstance(
-			"file://src/api/infra/database/migrations",
-			drive, driver)
-		
-		if e != nil {
-			panic(e.Error())
-		}
-		
-		m.Up()
-
+	if err != nil {
+	    panic(err.Error())
 	}
+	m, e:= migrate.NewWithDatabaseInstance(
+	  "file://src/api/infra/database/migrations",
+	drive, driver)
+		
+	if e != nil {
+	    panic(e.Error())
+	}
+		
+	m.Up()
+
 
 	log.Println("Banco de dados incializado!")
 
