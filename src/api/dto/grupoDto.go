@@ -10,3 +10,8 @@ type GrupoOutputDto struct {
 	Nome        string `json:"nome"`
 	Propietario string `json:"propietario"`
 }
+
+type KeyNonce struct {
+	Key   string `json:"keyw"`
+	Nonce string `json:"nonce"`
+}

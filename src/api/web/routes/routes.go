@@ -14,15 +14,17 @@ import (
 
 var r *chi.Mux
 
-func IniciarRotas(usuarioController *controllers.UsuarioController, grupoController *controllers.GrupoController) {
+func IniciarRotas(usuarioController *controllers.UsuarioController,
+	grupoController *controllers.GrupoController,
+	mensagemController *controllers.MensagemController) {
 	r = chi.NewRouter()
 
 	r.Use(middleware.ContentType)
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/", func(w http.ResponseWriter, _ *http.Request) {
 		json.NewEncoder(w).Encode(map[string]interface{}{"mensagem": "Seja bem vindo!"})
 	})
-	
+
 	r.Route("/v1", func(r chi.Router) {
 
 		r.Route("/user", func(r chi.Router) {
@@ -33,10 +35,15 @@ func IniciarRotas(usuarioController *controllers.UsuarioController, grupoControl
 			r.Delete("/excluir", usuarioController.DeleteUser)
 		})
 
-		r.Route("/group",func(r chi.Router) {
-			r.Get("/grupos",grupoController.GetGrupos)
-			r.Get("/grupos_p",grupoController.GetGruposPropietario)
-			r.Post("/criar",grupoController.PostGrupo)
+		r.Route("/group", func(r chi.Router) {
+			r.Get("/grupos", grupoController.GetGrupos)
+			r.Get("/grupos_p", grupoController.GetGruposPropietario)
+			r.Post("/criar", grupoController.PostGrupo)
+		})
+
+		r.Route("/mensagem", func(r chi.Router) {
+			r.Get("/ler", mensagemController.GetMensagens)
+			r.Post("/enviar", mensagemController.PostMensagem)
 		})
 	})
 }
