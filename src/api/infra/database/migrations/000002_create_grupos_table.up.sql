@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS grupos (
+    id SERIAL PRIMARY KEY,
+    grupo_id VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    propietario VARCHAR(255) NOT NULL,
+    keyw VARCHAR(255) NOT NULL,
+    nonce VARCHAR(255) NOT NULL
+);

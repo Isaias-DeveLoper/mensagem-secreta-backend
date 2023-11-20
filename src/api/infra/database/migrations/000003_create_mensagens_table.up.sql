@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS mensagens (
+    id INT NOT NULL AUTO_INCREMENT,
+    grupo_id VARCHAR(255),
+    texto TEXT NOT NULL
+);
+
